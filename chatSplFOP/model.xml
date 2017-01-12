@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel>
+		<properties/>
+		<struct>
+			<and abstract="true" mandatory="true" name="chat_spl">
+				<description>
+					
+				</description>
+				<and mandatory="true" name="Base">
+					<description>
+						
+					</description>
+					<and abstract="true" name="Client">
+						<description>
+							Die obligatorische Clientanwendung für jeden Teilnehmer des Chats.
+						</description>
+						<and abstract="true" name="MessageAPI">
+							<description>
+								Die Schnittstelle zur Übertragung von Nachrichten.
+							</description>
+							<feature name="deleteMessage">
+								<description>
+									Die Möglichkeit des Clients Nachrichten zu löschen.
+								</description>
+							</feature>
+						</and>
+						<and abstract="true" name="Customization">
+							<description>
+								Die Möglichkeit der Individualisierung des Users.
+							</description>
+							<feature name="setNickname">
+								<description>
+									Die Möglichkeit einen persönlichen Nickname anzugeben.
+								</description>
+							</feature>
+							<feature name="setAbout">
+								<description>
+									Die Möglichkeit weitere individualisierende Eigenschaften anzugeben, wie Alter, Interessen, etc..
+								</description>
+							</feature>
+						</and>
+					</and>
+					<and abstract="true" name="Server">
+						<description>
+							Die obligatorische Serveranwendung, welche den Chat hostet auf einem Port im Netzwerk hostet.
+						</description>
+						<feature name="Filesharing">
+							<description>
+								Die Möglichkeit Dateien zu transferieren auf dem Server.
+							</description>
+						</feature>
+					</and>
+					<and abstract="true" name="GUI">
+						<description>
+							Die Graphische Benutzeroberfläche für den User.
+						</description>
+						<or abstract="true" name="changeFont">
+							<description>
+								Die Möglichkeit des Users das Erscheinungsbild der Schrift zu personalisieren.
+							</description>
+							<feature mandatory="true" name="changeSize">
+								<description>
+									Die Schriftgröße ändern.
+								</description>
+							</feature>
+							<feature mandatory="true" name="changeStyle">
+								<description>
+									Den Schriftstil ändern (Kursiv / Fett / Unterstrichen)
+								</description>
+							</feature>
+							<feature mandatory="true" name="changeType">
+								<description>
+									Die Schriftart ändern.
+								</description>
+							</feature>
+						</or>
+						<feature name="showAbout">
+							<description>
+								Die persönlichen Informationen von Clients anzeigen lassen.
+							</description>
+						</feature>
+						<feature name="searchMessage">
+							<description>
+								Die Möglichkeit für den User die Nachrichten zu durchsuchen.
+							</description>
+						</feature>
+						<feature name="clearChat">
+							<description>
+								
+							</description>
+						</feature>
+						<feature name="changeChatBgColor">
+							<description>
+								
+							</description>
+						</feature>
+					</and>
+					<and abstract="true" name="Messaging">
+						<description>
+							Das Nachrichtensystem.
+						</description>
+						<feature name="DeliveryStatus">
+							<description>
+								Die Funktion, den Sender der Nachricht über das erfolgreiche Zustellen beim Enpfänger zu benachrichtigen.
+							</description>
+						</feature>
+					</and>
+				</and>
+			</and>
+		</struct>
+		<constraints>
+			<rule>
+				<imp>
+					<var>showAbout</var>
+					<var>setAbout</var>
+				</imp>
+			</rule>
+		</constraints>
+		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>
