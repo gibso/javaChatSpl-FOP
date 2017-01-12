@@ -1,9 +1,6 @@
 package javachat;
 
 import java.net.ConnectException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javachat.network.Client;
 import javachat.network.Server;
 import javachat.ui.ChatWindow;

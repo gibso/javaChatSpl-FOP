@@ -7,20 +7,18 @@ public class ChatWindow {
 	
 	void initComponents(){
 		
-		
-		JButton buttonPluginButton = new JButton();
-		buttonPluginButton.setText("Clear");
+		JButton clearButton = new JButton();
+		clearButton.setText("Clear");
 
-		buttonPluginButton.addActionListener(new ActionListener() {
+		clearButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				jTextAreaChat.setText("");
 			}
 		});
 
-		pluginButtonsHorizontal.addComponent(buttonPluginButton);
-		pluginButtonsVertical.addComponent(buttonPluginButton);
+		featureButtonsHorizontal.addComponent(clearButton);
+		featureButtonsVertical.addComponent(clearButton);
 		
 		original();
-	
 	}
 }
