@@ -22,13 +22,13 @@ public class ChatWindow {
 				int fontType = jTextAreaChat.getFont().getStyle();
 
 				// get the correct TextField
-				jTextAreaChat.setFont(new Font(fontName, fontType, fontSize));		
+				jTextAreaChat.setFont(new Font(fontName, fontType, fontSize));
 			}
 
 		});
 
-		featureButtonsHorizontal.addComponent(fonttypeComboBox);
-		featureButtonsVertical.addComponent(fonttypeComboBox);
+		midHorizontal.addComponent(fonttypeComboBox);
+		midVertical.addComponent(fonttypeComboBox);
 
 		original();
 	}

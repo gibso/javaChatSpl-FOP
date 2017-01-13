@@ -13,43 +13,55 @@ import javachat.JavaChat;
  * @author DrLabman
  */
 public class IPUtil {
-	public static String getInternalIPAddress(){
+
+	public static String getHostName() {
 		try {
 			InetAddress addr = InetAddress.getLocalHost();
-			// Get IP Address
-			return addr.getHostAddress();
-			//String hostname = addr.getHostName();
+			return addr.getHostName();
 		} catch (UnknownHostException ex) {
 		}
 		return null;
 	}
-	
-	public static void printInternalIP(){
-		// Get IP Address
-		String ipAddr = IPUtil.getInternalIPAddress();
-		//String hostname = addr.getHostName();
-		JavaChat.println("Internal (local) clients should use the address: " + ipAddr);
-	}
-	
-	public static String getExternalIPAddress(){
-		BufferedReader in = null;
+
+	public static String getInternalIPAddress() {
 		try {
-			
-			
-			URL whatismyip = new URL("http://checkip.amazonaws.com");
-			in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
-			return in.readLine(); //you get the IP as a String
-		} catch (IOException ex) {
-		} finally {
-			try { in.close(); } catch (IOException ex) {}
+			InetAddress addr = InetAddress.getLocalHost();
+			// Get IP Address
+			return addr.getHostAddress();
+			// String hostname = addr.getHostName();
+		} catch (UnknownHostException ex) {
 		}
 		return null;
 	}
-	
-	public static void printExternalIP(){
+
+	public static void printInternalIP() {
+		// Get IP Address
+		String ipAddr = IPUtil.getInternalIPAddress();
+		// String hostname = addr.getHostName();
+		JavaChat.println("Internal (local) clients should use the address: " + ipAddr);
+	}
+
+	public static String getExternalIPAddress() {
+		BufferedReader in = null;
+		try {
+
+			URL whatismyip = new URL("http://checkip.amazonaws.com");
+			in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
+			return in.readLine(); // you get the IP as a String
+		} catch (IOException ex) {
+		} finally {
+			try {
+				in.close();
+			} catch (IOException ex) {
+			}
+		}
+		return null;
+	}
+
+	public static void printExternalIP() {
 		// Get IP Address
 		String ipAddr = getExternalIPAddress();
-		if (ipAddr != null){
+		if (ipAddr != null) {
 			JavaChat.println("External (internet) clients should use the address: " + ipAddr);
 		} else {
 			JavaChat.println("Exception while attempting to get external ip address.");

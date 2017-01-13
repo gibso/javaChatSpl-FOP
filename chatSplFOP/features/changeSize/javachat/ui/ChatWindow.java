@@ -26,13 +26,11 @@ public class ChatWindow {
 
 		});
 
-		featureButtonsHorizontal.addComponent(fontsizeComboBox);
-		featureButtonsVertical.addComponent(fontsizeComboBox);
-		
+		midHorizontal.addComponent(fontsizeComboBox);
+		midVertical.addComponent(fontsizeComboBox);
+
 		original();
 	}
-
-
 
 	private String[] getFontsizeComboBoxList() {
 		String num[] = new String[100];

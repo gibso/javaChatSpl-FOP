@@ -20,11 +20,17 @@ import javachat.network.util.UPnP;
  * @author DrLabman
  */
 public class Server implements Runnable {
+
 	private int port;
+
 	private boolean connected;
+
 	private boolean disconnect;
+
 	private ArrayList<ClientSocket> clients;
+
 	private ServerSocket srvr;
+
 	private KeepAlive keepAlive;
 
 	public Server(int port) {
@@ -51,7 +57,6 @@ public class Server implements Runnable {
 	/**
 	 * Handle incoming connections, create ClientSockets for them.
 	 */
-	@Override
 	public void run() {
 		try {
 			srvr = new ServerSocket(port);
@@ -96,6 +101,8 @@ public class Server implements Runnable {
 
 		UPnP.UnregisterPort();
 	}
+	
+	public static String sb;
 
 	public void printClientNames() {
 		StringBuilder sb = new StringBuilder();
@@ -103,14 +110,16 @@ public class Server implements Runnable {
 			sb.append(client.getName());
 			sb.append(" ");
 		}
+		this.sb = sb.toString();
 		System.out.println("Users: " + sb.toString());
 	}
 
 	private class KeepAlive implements Runnable {
+
 		LinkedList<ClientSocket> queue = new LinkedList<ClientSocket>();
+
 		LinkedList<ClientSocket> pinged = new LinkedList<ClientSocket>();
 
-		@Override
 		public void run() {
 			while (!disconnect) {
 				long time = System.currentTimeMillis();
@@ -150,13 +159,16 @@ public class Server implements Runnable {
 			queue.remove(client);
 			pinged.remove(client);
 		}
+
 	}
 
 	/**
 	 * Class for handling incoming messages and the disconnected callback.
 	 */
 	private class ClientSocket extends SocketController {
+
 		private String name;
+
 		private long nextKeepAlive;
 
 		public ClientSocket(Socket socket) {
@@ -211,5 +223,7 @@ public class Server implements Runnable {
 		public long getNextKeepAlive() {
 			return nextKeepAlive;
 		}
+
 	}
+
 }

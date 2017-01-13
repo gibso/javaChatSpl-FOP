@@ -7,26 +7,25 @@ import java.awt.event.ActionListener;
 import javax.swing.JColorChooser;
 
 public class ChatWindow {
-	
-	void initComponents(){
-		
+
+	void initComponents() {
+
 		JButton bgColorButton = new JButton();
 		bgColorButton.setText("Chat BG-Color");
-		
+
 		bgColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Color initialBackground = jTextAreaChat.getBackground();
-				Color background = JColorChooser.showDialog(null, "Change Button Background",
-						initialBackground);
+				Color background = JColorChooser.showDialog(null, "Change Button Background", initialBackground);
 				if (background != null) {
 					jTextAreaChat.setBackground(background);
 				}
 			}
 		});
-		
-		featureButtonsHorizontal.addComponent(bgColorButton);
-		featureButtonsVertical.addComponent(bgColorButton);
-		
+
+		midHorizontal.addComponent(bgColorButton);
+		midVertical.addComponent(bgColorButton);
+
 		original();
 	}
 }

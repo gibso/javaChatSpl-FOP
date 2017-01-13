@@ -5,54 +5,39 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JColorChooser;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import javachat.JavaChat;
 import javachat.network.Client;
 
 public class ChatWindow {
-
-	private JTextField nameTextField;
-	private JButton updateNameButton;
+	
+	public String name = "Unknown";
 
 	void initComponents() {
 
-		JLabel nameLabel = new JLabel();
-		updateNameButton = new JButton();
-		nameTextField = new JTextField();
+		JButton nicknameButton = new JButton();
+		nicknameButton.setText("Update Name");
 
-		nameLabel.setText("Name:");
-		nameTextField.setText("Unknown");
-		updateNameButton.setText("Update Name");
-		updateNameButton.setEnabled(false);
-
-		updateNameButton.addActionListener(new ActionListener() {
+		nicknameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Client client = JavaChat.getClient();
-				if (client != null) {
-					String name = getUsername();
-					client.setName(name);
-				}
+				UpdateNameAction(e);
 			}
 		});
 
-		updateNameGroupHorizontal.addGroup(layout.createSequentialGroup().addComponent(nameLabel).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addComponent(nameTextField)
-				.addComponent(updateNameButton));
-
-		updateNameGroupVertical.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-				GroupLayout.PREFERRED_SIZE).addComponent(nameLabel).addComponent(updateNameButton));
+		topHorizontal.addComponent(nicknameButton);
+		topVertical.addComponent(nicknameButton);
 
 		original();
 	}
-
-	String getUsername() {
-		return nameTextField.getText();
-	}
 	
-	void lockServerDetails(boolean lock) {
-		original(lock);
-		updateNameButton.setEnabled(lock);
+	private void UpdateNameAction(java.awt.event.ActionEvent evt) {
+		Client client = JavaChat.getClient();
+		String comp = jTextFieldName.getText();
+		if (!name.equals(comp)){
+			if (client != null) {
+				name = jTextFieldName.getText();
+				client.setName(name);
+			}
+		}
 	}
 }

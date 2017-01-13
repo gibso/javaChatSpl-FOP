@@ -39,10 +39,10 @@ public class ChatWindow {
 			}
 		});
 
-		featureButtonsHorizontal.addComponent(boldButton);
-		featureButtonsHorizontal.addComponent(italicButton);
-		featureButtonsVertical.addComponent(boldButton);
-		featureButtonsVertical.addComponent(italicButton);
+		midHorizontal.addComponent(boldButton);
+		midHorizontal.addComponent(italicButton);
+		midVertical.addComponent(boldButton);
+		midVertical.addComponent(italicButton);
 		
 		original();
 	}

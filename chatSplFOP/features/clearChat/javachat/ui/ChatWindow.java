@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ChatWindow {
-	
-	void initComponents(){
-		
+
+	void initComponents() {
+
 		JButton clearButton = new JButton();
 		clearButton.setText("Clear");
 
@@ -16,9 +16,9 @@ public class ChatWindow {
 			}
 		});
 
-		featureButtonsHorizontal.addComponent(clearButton);
-		featureButtonsVertical.addComponent(clearButton);
-		
+		midHorizontal.addComponent(clearButton);
+		midVertical.addComponent(clearButton);
+
 		original();
 	}
 }
