@@ -25,10 +25,10 @@ public  class  Client  extends SocketController {
 	private String name;
 
 	
-	
-	public static Client createClient(String hostname, int port, String name) throws ConnectException{
+
+	public static Client createClient(String hostname, int port, String name) throws ConnectException {
 		try {
-			//Create a socket to connect with
+			// Create a socket to connect with
 			Socket skt = new Socket(hostname, port);
 			// Create the client object using the socket
 			Client client = new Client(skt);
@@ -49,56 +49,56 @@ public  class  Client  extends SocketController {
 	}
 
 	
-	
-	private Client(Socket socket){
+
+	private Client(Socket socket) {
 		super(socket);
 	}
 
 	
 
 	@Override
-	public void receiveMsg(Packet msg){
-		if (msg != null){
-						switch (msg.getType()){
-				case MSG:
-					// Send message back to all other clients
-					JavaChat.println(msg.getData()[0]);
-					break;
-				case PING:
-					sendMsg(Packet.createPongPacket());
-					//JavaChat.println("Ping!");
-					break;
-				case QUIT:
-					if (!socketCtrl.isDisconnecting())
-						disconnect();
-					JavaChat.println("Client disconnected.");
-					break;
-				case HELO:
-				case NAME:
-					// Not expected
-					JavaChat.println("Received unexpected packet type: " + msg.getType().name());
-					break;
-				default:
-					JavaChat.println("Unknown packet type from connection: " + msg.getType().name());
-					break;
+	public void receiveMsg(Packet msg) {
+		if (msg != null) {
+			switch (msg.getType()) {
+			case MSG:
+				// Send message back to all other clients
+				JavaChat.println(msg.getData()[0]);
+				break;
+			case PING:
+				sendMsg(Packet.createPongPacket());
+				// JavaChat.println("Ping!");
+				break;
+			case QUIT:
+				if (!socketCtrl.isDisconnecting())
+					disconnect();
+				JavaChat.println("Client disconnected.");
+				break;
+			case HELO:
+			case NAME:
+				// Not expected
+				JavaChat.println("Received unexpected packet type: " + msg.getType().name());
+				break;
+			default:
+				JavaChat.println("Unknown packet type from connection: " + msg.getType().name());
+				break;
 			}
 		}
 	}
 
 	
-	
+
 	@Override
-	public void disconnected(){
+	public void disconnected() {
 		JavaChat.disconnected();
 	}
 
 	
-	
+
 	/**
-	 * Override sendMsg because we need to prepend our name to our messages
-	 * and we want to print the message as it doesn't echo back to us.
+	 * Override sendMsg because we need to prepend our name to our messages and
+	 * we want to print the message as it doesn't echo back to us.
 	 * 
-	 * @param msg 
+	 * @param msg
 	 */
 	@Override
 	public void sendMsg(String msg) {
@@ -108,15 +108,16 @@ public  class  Client  extends SocketController {
 	}
 
 	
-	
-	private void sendHello(){
+
+	private void sendHello() {
 		sendMsg(Packet.createHeloPacket(name));
 	}
 
 	
-	
+
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		sendMsg(Packet.createNamePacket(this.name, name));

@@ -9,42 +9,49 @@ import javachat.network.message.Packet;
 import javachat.network.message.PacketType; 
 
 /**
- * SocketController deals with reading/writing and cleaning up a socket when
- * the user wants to disconnect or when the server/client disconnects from us.
+ * SocketController deals with reading/writing and cleaning up a socket when the
+ * user wants to disconnect or when the server/client disconnects from us.
  * 
  * @author DrLabman
  */
 public abstract  class  SocketController  implements Runnable {
 	
+
 	private Socket socket;
 
 	
+
 	private boolean connected;
 
 	
+
 	private boolean disconnect;
 
 	
+
 	private ObjectOutputStream output;
 
 	
+
 	private ObjectInputStream input;
 
 	
-	//private PrintWriter output;
-	//private BufferedReader input;
-	
-	public SocketController(Socket socket){
+
+	// private PrintWriter output;
+	// private BufferedReader input;
+
+	public SocketController(Socket socket) {
 		try {
 			this.socket = socket;
 			connected = false;
 			disconnect = false;
-			
+
 			output = new ObjectOutputStream(socket.getOutputStream());
 			input = new ObjectInputStream(socket.getInputStream());
-			//output = new PrintWriter(socket.getOutputStream(), true);
-			//input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			
+			// output = new PrintWriter(socket.getOutputStream(), true);
+			// input = new BufferedReader(new
+			// InputStreamReader(socket.getInputStream()));
+
 			new Thread(this).start();
 		} catch (IOException ex) {
 			cleanup();
@@ -52,22 +59,30 @@ public abstract  class  SocketController  implements Runnable {
 	}
 
 	
-	
+
 	/**
 	 * Cleanup code to shutdown a connection because the user wants to
 	 * disconnect or because something went wrong.
 	 */
-	private void cleanup(){
-//		if (!socket.isOutputShutdown()){
-//			sendQuit();
-//		}
-		if (input != null){
-			try { input.close(); } catch (IOException ex) {}
+	private void cleanup() {
+		// if (!socket.isOutputShutdown()){
+		// sendQuit();
+		// }
+		if (input != null) {
+			try {
+				input.close();
+			} catch (IOException ex) {
+			}
 		}
 		if (output != null)
-			try { output.close(); } catch (IOException ex) {}
-		if (socket != null && !socket.isClosed()){
-			try { socket.close(); } catch (IOException ex) {
+			try {
+				output.close();
+			} catch (IOException ex) {
+			}
+		if (socket != null && !socket.isClosed()) {
+			try {
+				socket.close();
+			} catch (IOException ex) {
 				JavaChat.println("Exception closing socket: " + ex.getMessage());
 			}
 		}
@@ -76,32 +91,33 @@ public abstract  class  SocketController  implements Runnable {
 	}
 
 	
-	
+
 	/**
 	 * Main thread which reads data from the socket and passes it off to the
 	 * handler.
 	 */
-	@Override
 	public void run() {
 		try {
 			setConnected(true);
-			
-			while (!disconnect){
-				if (!socket.isClosed()){// && input.available() > 0) {
-					Packet msg = (Packet)input.readObject();
+
+			while (!disconnect) {
+				if (!socket.isClosed()) {// && input.available() > 0) {
+					Packet msg = (Packet) input.readObject();
 					receiveMsg(msg);
 				} else {
-					try { Thread.sleep(100); } 
-					catch (InterruptedException ex) {}
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException ex) {
+					}
 				}
 			}
 		} catch (ClassNotFoundException ex) {
 			JavaChat.println("Incorrect object from socket: " + ex.getMessage());
-		} catch (java.net.ConnectException e){
+		} catch (java.net.ConnectException e) {
 			JavaChat.println("Connection exception: " + e.getMessage());
-		} catch(java.net.SocketException e){
+		} catch (java.net.SocketException e) {
 			JavaChat.println("Socket Exception: " + e.getMessage());
-		} catch(java.io.IOException e){
+		} catch (java.io.IOException e) {
 			JavaChat.println("IO Exception: " + e.getMessage());
 		} finally {
 			cleanup();
@@ -110,26 +126,26 @@ public abstract  class  SocketController  implements Runnable {
 
 	
 
-	public void sendMsg(String msg){
-		Packet cmd = new Packet(PacketType.MSG,new String[] {msg} );
+	public void sendMsg(String msg) {
+		Packet cmd = new Packet(PacketType.MSG, new String[] { msg });
 		sendData(cmd);
 	}
 
 	
-	
-	public void sendMsg(Packet msg){
+
+	public void sendMsg(Packet msg) {
 		sendData(msg);
 	}
 
 	
-	
-	private void sendQuit(){
+
+	private void sendQuit() {
 		sendData(Packet.createQuitPacket());
 	}
 
 	
-	
-	private void sendData(Packet data){
+
+	private void sendData(Packet data) {
 		try {
 			output.writeObject(data);
 		} catch (IOException ex) {
@@ -138,7 +154,7 @@ public abstract  class  SocketController  implements Runnable {
 	}
 
 	
-	
+
 	/**
 	 * @return the connected
 	 */
@@ -149,24 +165,24 @@ public abstract  class  SocketController  implements Runnable {
 	
 
 	/**
-	 * @param connected the connected to set
+	 * @param connected
+	 *            the connected to set
 	 */
 	public void setConnected(boolean connected) {
 		this.connected = connected;
 	}
 
 	
-	
+
 	/**
-	 * @return true if we are connected but in the process of disconnecting
-	 *				or are actually disconnected
+	 * @return true if we are connected but in the process of disconnecting or
+	 *         are actually disconnected
 	 */
-	public boolean isDisconnecting(){
+	public boolean isDisconnecting() {
 		return disconnect;
 	}
 
 	
-
 
 	public void disconnect() {
 		this.disconnect = true;
@@ -174,19 +190,21 @@ public abstract  class  SocketController  implements Runnable {
 	}
 
 	
-	
+
 	/**
 	 * Each line that is received from the socket is sent to this method for
 	 * handling
 	 * 
-	 * @param msg String received from the socket
+	 * @param msg
+	 *            String received from the socket
 	 */
 	public abstract void receiveMsg(Packet msg);
 
 	
-	
+
 	/**
-	 * When a socket is closed the call back is used to alert the creating class.
+	 * When a socket is closed the call back is used to alert the creating
+	 * class.
 	 */
 	public abstract void disconnected();
 
