@@ -28,16 +28,16 @@
 							<description>
 								Die Möglichkeit der Individualisierung des Users.
 							</description>
-							<feature name="setNickname">
+							<and name="setNickname">
 								<description>
 									Die Möglichkeit einen persönlichen Nickname anzugeben.
 								</description>
-							</feature>
-							<feature name="setAbout">
-								<description>
-									Die Möglichkeit weitere individualisierende Eigenschaften anzugeben, wie Alter, Interessen, etc..
-								</description>
-							</feature>
+								<feature name="setAbout">
+									<description>
+										Die Möglichkeit weitere individualisierende Eigenschaften anzugeben, wie Alter, Interessen, etc..
+									</description>
+								</feature>
+							</and>
 						</and>
 					</and>
 					<and abstract="true" name="Server">

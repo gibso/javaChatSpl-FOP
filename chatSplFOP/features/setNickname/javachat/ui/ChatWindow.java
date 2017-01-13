@@ -31,18 +31,18 @@ public class ChatWindow {
 			public void actionPerformed(ActionEvent e) {
 				Client client = JavaChat.getClient();
 				if (client != null) {
-					String name = nameTextField.getText();
+					String name = getUsername();
 					client.setName(name);
 				}
 			}
 		});
 
-		updateNameGroupHorizontal.addComponent(nameLabel).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addComponent(nameTextField).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addComponent(updateNameButton);
+		updateNameGroupHorizontal.addGroup(layout.createSequentialGroup().addComponent(nameLabel).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(nameTextField)
+				.addComponent(updateNameButton));
 
-		updateNameGroupVertical.addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-				GroupLayout.PREFERRED_SIZE).addComponent(nameLabel).addComponent(updateNameButton);
+		updateNameGroupVertical.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+				GroupLayout.PREFERRED_SIZE).addComponent(nameLabel).addComponent(updateNameButton));
 
 		original();
 	}
