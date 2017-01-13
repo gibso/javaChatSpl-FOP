@@ -27,10 +27,9 @@ import javax.swing.GroupLayout;
 public class ChatWindow extends JFrame {
 
 	static final long serialVersionUID = 0;
-	
+
 	private ButtonGroup buttonGroupModeType;
 	private JButton jButtonSend;
-	private JLabel jLabel1;
 	private JLabel jLabelHost;
 	private JLabel jLabelPort;
 	private JRadioButton jRadioButtonClient;
@@ -39,22 +38,25 @@ public class ChatWindow extends JFrame {
 	private JTextArea jTextAreaChat;
 	private JTextField jTextFieldHostname;
 	private JTextField jTextFieldMessage;
-	private JTextField jTextFieldName;
 	private JTextField jTextFieldPort;
 	private JToggleButton jToggleButtonOnline;
-	
+
 	private GroupLayout layout;
+	private SequentialGroup updateNameGroupHorizontal;
+	private ParallelGroup updateNameGroupVertical;
 	private SequentialGroup featureButtonsHorizontal;
 	private ParallelGroup featureButtonsVertical;
 
 	/**
 	 * Creates new form ChatWindow
 	 */
-	public ChatWindow() {		
+	public ChatWindow() {
 		this.layout = new GroupLayout(getContentPane());
 		this.featureButtonsHorizontal = layout.createSequentialGroup();
 		this.featureButtonsVertical = layout.createParallelGroup(GroupLayout.Alignment.BASELINE);
-		
+		this.updateNameGroupHorizontal = layout.createSequentialGroup();
+		this.updateNameGroupVertical = layout.createParallelGroup(GroupLayout.Alignment.BASELINE);
+
 		initComponents();
 		this.setTitle("Java Chat");
 	}
@@ -78,8 +80,6 @@ public class ChatWindow extends JFrame {
 		jScrollPane1 = new JScrollPane();
 		jTextAreaChat = new JTextArea();
 		jButtonSend = new JButton();
-		jTextFieldName = new JTextField();
-		jLabel1 = new JLabel();
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,69 +130,45 @@ public class ChatWindow extends JFrame {
 			}
 		});
 
-		jTextFieldName.setText("Unknown");
-		jLabel1.setText("Name:");
-		
 		getContentPane().setLayout(layout);
 
-		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addComponent(jScrollPane1)
+		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(jScrollPane1)
 				.addGroup(layout.createSequentialGroup().addComponent(jTextFieldMessage)
 						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(jButtonSend)
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				)
-				
-				.addGroup(featureButtonsHorizontal)
-				
-				.addGroup(layout.createSequentialGroup()
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED))
 
-				).addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING).addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup().addComponent(jLabel1).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(jTextFieldName)).addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+				.addGroup(featureButtonsHorizontal).addGroup(layout.createSequentialGroup())
+				.addGroup(GroupLayout.Alignment.TRAILING,
+						layout.createSequentialGroup()
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+										.addGroup(GroupLayout.Alignment.LEADING, this.updateNameGroupHorizontal)
+										.addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
 
-		).addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-				.addComponent(jRadioButtonServer).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addComponent(jRadioButtonClient)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
-				.addComponent(jLabelHost).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addComponent(jTextFieldHostname, GroupLayout.PREFERRED_SIZE, 221,
-						GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(jLabelPort)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(jTextFieldPort,
-						GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+										).addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup().addComponent(jRadioButtonServer).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(jRadioButtonClient).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE).addComponent(jLabelHost).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(jTextFieldHostname, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(jLabelPort).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(jTextFieldPort, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
 
-								.addComponent(jToggleButtonOnline, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))));
+												.addComponent(jToggleButtonOnline, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))));
 
-		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(jRadioButtonServer).addComponent(jRadioButtonClient)
-								.addComponent(jToggleButtonOnline)
-								.addComponent(jTextFieldHostname, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabelHost).addComponent(jLabelPort).addComponent(jTextFieldPort,
-										GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(jTextFieldName, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabel1)
-						)
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(jTextFieldMessage, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jButtonSend)
-						)
-						
-						.addGroup(featureButtonsVertical)
-						
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-		)));
+		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(layout
+				.createSequentialGroup()
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(jRadioButtonServer)
+						.addComponent(jRadioButtonClient).addComponent(jToggleButtonOnline)
+						.addComponent(jTextFieldHostname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+						.addComponent(jLabelHost).addComponent(jLabelPort).addComponent(jTextFieldPort,
+								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addGroup(this.updateNameGroupVertical)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addGroup(layout
+						.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(jTextFieldMessage,
+								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jButtonSend))
+
+				.addGroup(featureButtonsVertical)
+
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE))));
 
 		pack();
 
@@ -206,10 +182,11 @@ public class ChatWindow extends JFrame {
 		jTextFieldHostname.setEnabled(true);
 	}// GEN-LAST:event_jRadioButtonClientActionPerformed
 
-	private void jToggleButtonOnlineActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jToggleButtonOnlineActionPerformed
+	private void jToggleButtonOnlineActionPerformed(java.awt.event.ActionEvent evt) {
+
 		if (jToggleButtonOnline.isSelected()) {
 			boolean connected = false;
-			String name = jTextFieldName.getText();
+			String name = this.getUsername();
 
 			// Connect
 			if (jRadioButtonServer.isSelected()) {
@@ -295,5 +272,9 @@ public class ChatWindow extends JFrame {
 
 	public void println(final String text) {
 		print(text + "\n");
+	}
+
+	private String getUsername() {
+		return "Unknown";
 	}
 }
