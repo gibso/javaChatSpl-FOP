@@ -28,16 +28,16 @@
 							<description>
 								Die Möglichkeit der Individualisierung des Users.
 							</description>
-							<and name="setNickname">
+							<feature name="setNickname">
 								<description>
 									Die Möglichkeit einen persönlichen Nickname anzugeben.
 								</description>
-								<feature name="setAbout">
-									<description>
-										Die Möglichkeit weitere individualisierende Eigenschaften anzugeben, wie Alter, Interessen, etc..
-									</description>
-								</feature>
-							</and>
+							</feature>
+							<feature name="setAbout">
+								<description>
+									Die Möglichkeit weitere individualisierende Eigenschaften anzugeben, wie Alter, Interessen, etc..
+								</description>
+							</feature>
 						</and>
 					</and>
 					<and abstract="true" name="Server">
@@ -74,11 +74,6 @@
 								</description>
 							</feature>
 						</or>
-						<feature name="showAbout">
-							<description>
-								Die persönlichen Informationen von Clients anzeigen lassen.
-							</description>
-						</feature>
 						<feature name="searchMessage">
 							<description>
 								Die Möglichkeit für den User die Nachrichten zu durchsuchen.
@@ -94,6 +89,21 @@
 								
 							</description>
 						</feature>
+						<and abstract="true" name="showServer">
+							<description>
+								
+							</description>
+							<feature name="showOnline">
+								<description>
+									Die Informationen anzeigen lassen wer Online ist.
+								</description>
+							</feature>
+							<feature name="showInformation">
+								<description>
+									Die Informationen über den Server.
+								</description>
+							</feature>
+						</and>
 					</and>
 					<and abstract="true" name="Messaging">
 						<description>
@@ -111,7 +121,7 @@
 		<constraints>
 			<rule>
 				<imp>
-					<var>showAbout</var>
+					<var>showOnline</var>
 					<var>setAbout</var>
 				</imp>
 			</rule>
